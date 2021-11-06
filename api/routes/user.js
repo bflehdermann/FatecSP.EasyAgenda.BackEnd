@@ -3,7 +3,7 @@ const User = require('../controllers/user/user')
 const router = express.Router()
 
 router.post(
-    '/login',
+    '/cadastro',
     User.middleware,
     User.post
 )
