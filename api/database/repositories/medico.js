@@ -1,7 +1,8 @@
 const db = require('../connector')
 
-exports.findUserByEmail = (async(email) =>{
-    const text = 'SELECT id FROM cliente WHERE email LIKE $1'
+exports.findMedicoByEmail = (async(payload) =>{
+    const {email} = payload
+    const text = 'SELECT * FROM medico WHERE email LIKE $1'
     const values = [email]
     const client = await db.connect()
     try{
@@ -12,9 +13,10 @@ exports.findUserByEmail = (async(email) =>{
     }
 })
 
-exports.createUser = (async(nome,email, senha) =>{
-    const text = 'INSERT INTO cliente (nome,email,senha) VALUES ($1, $2, $3)'
-    const values = [nome,email,senha]
+exports.createMedico = (async(payload) =>{
+    const{nome,crm,endereco,cep,cidade,estado,email,senha} = payload
+    const text = 'INSERT INTO medico (nome,crm,endereco,cep,cidade,estado,email,senha) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)'
+    const values = [nome,crm,endereco,cep,cidade,estado,email,senha]
     const client = await db.connect()
     try{
         const res = await client.query(text,values)

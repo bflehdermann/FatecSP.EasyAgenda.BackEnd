@@ -1,11 +1,11 @@
 const express = require('express')
-const User = require('../controllers/user/user')
+const Auth = require('../controllers/authentication/auth')
 const router = express.Router()
 
 router.post(
-    '/cadastro',
-    User.middleware,
-    User.post
+    '/auth',
+    Auth.middleware,
+    Auth.post
 )
 
 module.exports = router
