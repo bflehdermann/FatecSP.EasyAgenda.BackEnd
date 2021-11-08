@@ -7,7 +7,7 @@ const language = require('../api/middlewares/language')
 const error = require('../api/middlewares/error')
 
 const medicoRouter = require('../api/routes/medico')
-const authRoutes = require('../api/routes/auth')
+const loginRouter = require('../api/routes/login')
 const pacienteRouter = require('../api/routes/paciente')
 
 module.exports = () => {
@@ -23,7 +23,7 @@ module.exports = () => {
   require('../api/routes/helloWorld')(app)
 
   app.use('/api', medicoRouter)
-  app.use('/api', authRoutes)
+  app.use('/api', loginRouter)
   app.use('/api', pacienteRouter)
 
   app.disable('x-powered-by')
