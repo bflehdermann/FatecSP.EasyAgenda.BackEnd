@@ -20,5 +20,6 @@ exports.post = controller(async({body},res,)=>{
         'Falha no login!',
         'Login/senha incorreto.'
     ))
-    res.status(status.OK).json({token: generateToken({ email: user.email, acesso: 'medico'})})
+    res.status(status.OK).json({token: generateToken({acesso: 'medico', id:user.id, email: user.email })})
 })
+

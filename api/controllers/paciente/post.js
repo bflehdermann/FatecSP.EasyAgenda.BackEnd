@@ -12,7 +12,7 @@ exports.middleware = [
     encryptPassword
 ]
 
-exports.post = controller(async({body},res)=>{
+exports.handler = controller(async({body},res)=>{
     await createPaciente(body)
     const {id,nome,email} = await findPacienteByEmail(body)
     res.status(status.OK).json({id,nome,email})

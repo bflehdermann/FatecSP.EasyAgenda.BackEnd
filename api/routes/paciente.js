@@ -1,11 +1,11 @@
 const express = require('express')
-const Paciente = require('../controllers/paciente/paciente')
+const Paciente = require('../controllers/paciente/post')
 const router = express.Router()
 
 router.post(
     '/paciente',
     Paciente.middleware,
-    Paciente.post
+    Paciente.handler
 )
 
 module.exports = router

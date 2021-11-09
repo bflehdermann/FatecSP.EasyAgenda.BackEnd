@@ -40,3 +40,16 @@ exports.encryptPassword = controller((req, _, next) => {
     req.body.senha = hash(req.body.senha)
     return next()
 })
+
+exports.checkAtualizacaoEmail = controller(async(req,res,next)=>{
+    if(req.body.email != req._rt_auth_token.email){
+        const user = await findMedicoByEmail(req.body)
+        if (user)
+            return res.status(status.BAD_REQUEST).json(errorResponse(
+                'E-mail em uso!',
+                'O endereço de e-mail informado já se encontra vincludado à outra conta.'
+            ))
+    }
+        
+    return next()
+})
