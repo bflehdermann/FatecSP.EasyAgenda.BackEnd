@@ -25,3 +25,17 @@ exports.createEspecialidade = (async(payload) =>{
         return err.stack
     }
 })
+
+exports.findOneEspecialidade = (async(payload)=>{
+    const{nome} = payload
+    const text = 'SELECT * FROM especialidade WHERE (nome) LIKE ($1)'
+    const values = [nome]
+    const client = await db.connect()
+    try{
+        const res = await client.query(text,values)
+        return res.rows[0]
+    }catch (err){
+        console.log(err.stack)
+        return err.stack
+    }
+})
