@@ -9,6 +9,7 @@ const error = require('../api/middlewares/error')
 const medicoRouter = require('../api/routes/medico')
 const loginRouter = require('../api/routes/login')
 const pacienteRouter = require('../api/routes/paciente')
+const especialidadeRouter = require('../api/routes/especialidades')
 
 module.exports = () => {
   const app = express();
@@ -25,6 +26,7 @@ module.exports = () => {
   app.use('/api', medicoRouter)
   app.use('/api', loginRouter)
   app.use('/api', pacienteRouter)
+  app.use('/api', especialidadeRouter)
 
   app.disable('x-powered-by')
 
