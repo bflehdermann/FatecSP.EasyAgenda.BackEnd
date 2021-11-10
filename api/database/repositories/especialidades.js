@@ -13,7 +13,7 @@ exports.findEspecialidades = (async() =>{
 })
 
 exports.createEspecialidade = (async(payload) =>{
-    const{nome} = payload
+    const {nome} = payload
     const text = 'INSERT INTO especialidade (nome) VALUES ($1)'
     const values = [nome]
     const client = await db.connect()
@@ -27,7 +27,7 @@ exports.createEspecialidade = (async(payload) =>{
 })
 
 exports.findOneEspecialidade = (async(payload)=>{
-    const{nome} = payload
+    let {nome} = payload
     const text = 'SELECT * FROM especialidade WHERE (nome) LIKE ($1)'
     const values = [nome]
     const client = await db.connect()

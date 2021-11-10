@@ -4,6 +4,7 @@ const {findMedicoByEmail} = require('../../database/repositories/medico')
 const {errorResponse} = require('../../presenters/handle')
 const { controller } = require('../../presenters/controller')
 const { hash } = require('../../presenters/encryptation')
+const { findEspecialidades } = require('../../database/repositories/especialidades')
 
 
 exports.validateMedicoBody = [
@@ -15,6 +16,7 @@ exports.validateMedicoBody = [
     body('cidade').trim().isString().notEmpty(),
     body('estado').trim().isString().notEmpty(),
     body('cep').trim().isString().notEmpty(),
+    body('especialidades').isArray().notEmpty()
 ]
 
 exports.checkEmail = controller(async ({ body}, res, next) => {

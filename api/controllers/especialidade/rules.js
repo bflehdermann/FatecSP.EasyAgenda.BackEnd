@@ -5,7 +5,7 @@ const { errorResponse } = require("../../presenters/handle");
 const { status } = require("../../presenters/http");
 
 exports.validateEspecialidadeBody = [
-    body('nome').trim().isString().notEmpty()
+    body('nome').trim().isString().notEmpty().toUpperCase()
 ]
 
 
