@@ -30,3 +30,23 @@ exports.createPaciente = (async(payload) =>{
         return err.stack
     }
 })
+
+exports.FindAndUpdatePaciente = (async(id,payload)=>{
+    const{nome,email,cpf,convenio,senha} = payload
+    const {
+        carteirinhaConvenio:carteirinha_convenio,
+        validadeConvenio: validade_convenio,
+        planoConvenio: plano_convenio } = payload
+    
+        const text = 'UPDATE paciente SET (nome,email,cpf,convenio,carteirinha_convenio,validade_convenio,plano_convenio,senha) = ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *'
+    const values = [nome,email,cpf,convenio,carteirinha_convenio,validade_convenio,plano_convenio,senha]
+    const client = await db.connect()
+    try{
+        const res = await client.query(text,values)
+        return res.rows[0]
+    }catch (err){
+        console.log(err.stack)
+        return err.stack
+    }
+    
+})
