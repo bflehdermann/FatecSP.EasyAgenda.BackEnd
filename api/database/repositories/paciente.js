@@ -53,12 +53,14 @@ exports.FindAndUpdatePaciente = (async(id,payload)=>{
 
 exports.findAndDeletePaciente = (async(id)=>{
     const textHorario = 'DELETE FROM horario WHERE id_cliente = $1'
-    const textPaciente = 'DELETE FROM paciente WHERE id = $1'
+    const textPaciente = 'DELETE FROM paciente WHERE id = $1 RETURNING *'
     const values = [id]
     const client = await db.connect()
     try{
         await client.query(textHorario,values)
-        await client.query(textPaciente,values)
+        const res = await client.query(textPaciente,values)
+ 
+        return res.rows[0]
     }catch (err){
         console.log(err.stack)
         return err.stack

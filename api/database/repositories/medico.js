@@ -40,3 +40,21 @@ exports.findAndUpdateMedico = (async( id, payload )=>{
         return err.stack
     }
 })
+
+exports.findAndDeleteMedico = (async(id)=>{
+    const textHorario = 'DELETE FROM horario WHERE id_medico = $1'
+    const textEspecialidade = 'DELETE FROM medico_especialidade WHERE id_medico = $1'
+    const textMedico = 'DELETE FROM medico WHERE id = $1 RETURNING *'
+    const values = [id]
+    const client = await db.connect()
+    try{
+        await client.query(textHorario,values)
+        await client.query(textEspecialidade,values)
+        const res = await client.query(textMedico,values)
+ 
+        return res.rows[0]
+    }catch (err){
+        console.log(err.stack)
+        return err.stack
+    }
+})
