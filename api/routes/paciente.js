@@ -1,6 +1,7 @@
 const express = require('express')
 const Paciente = require('../controllers/paciente/post')
 const atualizaPaciente = require('../controllers/paciente/put')
+const deletaPaciente = require('../controllers/paciente/delete')
 const router = express.Router()
 
 router.post(
@@ -13,6 +14,12 @@ router.put(
     '/paciente',
     atualizaPaciente.middleware,
     atualizaPaciente.handler
+)
+
+router.delete(
+    '/paciente',
+    deletaPaciente.middleware,
+    deletaPaciente.handler
 )
 
 router
