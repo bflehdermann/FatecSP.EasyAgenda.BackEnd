@@ -15,7 +15,7 @@ exports.findMedicoByEmail = (async(payload) =>{
 
 exports.createMedico = (async(payload) =>{
     const{nome,crm,endereco,cep,cidade,estado,email,senha} = payload
-    const text = 'INSERT INTO medico (nome,crm,endereco,cep,cidade,estado,email,senha) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)'
+    const text = 'INSERT INTO medico (nome,crm,endereco,cep,cidade,estado,email,senha) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *'
     const values = [nome,crm,endereco,cep,cidade,estado,email,senha]
     const client = await db.connect()
     try{
@@ -29,7 +29,7 @@ exports.createMedico = (async(payload) =>{
 
 exports.findAndUpdateMedico = (async( id, payload )=>{
     const{nome,crm,endereco,cep,cidade,estado,email,senha} = payload
-    const text = `UPDATE medico SET (nome,crm,endereco,cep,cidade,estado,email,senha) = ($1, $2, $3, $4, $5, $6, $7, $8) WHERE id = ${id} `
+    const text = `UPDATE medico SET (nome,crm,endereco,cep,cidade,estado,email,senha) = ($1, $2, $3, $4, $5, $6, $7, $8) WHERE id = ${id} RETURNING *`
     const values = [nome,crm,endereco,cep,cidade,estado,email,senha]
     const client = await db.connect()
     try{

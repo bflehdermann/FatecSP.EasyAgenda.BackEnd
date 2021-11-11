@@ -2,7 +2,7 @@ const {status} = require('../../presenters/http')
 const { validaPacienteBody, checkEmail, encryptPassword, validaConvenio } = require('./rules')
 const { validateErrorBody } = require('../../presenters/validator')
 const { controller } = require('../../presenters/controller')
-const { createPaciente, findPacienteByEmail } = require('../../database/repositories/paciente')
+const { createPaciente } = require('../../database/repositories/paciente')
 
 exports.middleware = [
     validaPacienteBody,
@@ -13,7 +13,6 @@ exports.middleware = [
 ]
 
 exports.handler = controller(async({body},res)=>{
-    await createPaciente(body)
-    const {id,nome,email} = await findPacienteByEmail(body)
+    const {id,nome,email} = await createPaciente(body)
     res.status(status.OK).json({id,nome,email})
 })

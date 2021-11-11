@@ -13,8 +13,7 @@ exports.middleware = [
 ]
 
 exports.handler = controller(async({body},res)=>{
-    await createMedico(body)
-    const {id,nome,email} = await findMedicoByEmail(body)
-    await createMedicoEspecialidade(id,body)
+    const {id,nome,email} = await createMedico(body)
+    createMedicoEspecialidade(id,body)
     res.status(status.OK).json({id,nome,email})
 })

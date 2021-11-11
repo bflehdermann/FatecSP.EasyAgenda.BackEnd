@@ -7,7 +7,7 @@ const { findAndUpdateMedico, findMedicoByEmail } = require('../../database/repos
 const { updateMedicoEspecialidade, findMedicoEspecialidadesById } = require('../../database/repositories/medico_especialidade')
 
 exports.middleware = [
-    validateAuthorization, //função para Autenticação da Rota
+    validateAuthorization, //função para Autenticação de Rota
     validateMedicoBody,
     validateErrorBody,
     checkAtualizacaoEmail,
@@ -15,10 +15,10 @@ exports.middleware = [
 ]
 
 exports.handler = controller(async(req,res)=>{
-    await findAndUpdateMedico( req._rt_auth_token.id , req.body)
-    const {senha, id, ...atualizaInfoMedico} = await findMedicoByEmail(req.body)
-    await updateMedicoEspecialidade(req._rt_auth_token.id , req.body)
-    const atualizaEspecialidadeMedico = await findMedicoEspecialidadesById(req._rt_auth_token.id)
+    const {senha, id, ...atualizaInfoMedico} =await findAndUpdateMedico( req._rt_auth_token.id , req.body)
+
+    const atualizaEspecialidadeMedico = await updateMedicoEspecialidade(req._rt_auth_token.id , req.body)
+
     atualizaInfoMedico.especialidades = atualizaEspecialidadeMedico
     res.status(status.OK).json(atualizaInfoMedico)
 })

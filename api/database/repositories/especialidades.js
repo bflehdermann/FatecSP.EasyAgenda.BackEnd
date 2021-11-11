@@ -14,7 +14,7 @@ exports.findEspecialidades = (async() =>{
 
 exports.createEspecialidade = (async(payload) =>{
     const {nome} = payload
-    const text = 'INSERT INTO especialidade (nome) VALUES ($1)'
+    const text = 'INSERT INTO especialidade (nome) VALUES ($1) RETURNING *'
     const values = [nome]
     const client = await db.connect()
     try{
