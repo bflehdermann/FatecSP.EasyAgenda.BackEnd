@@ -1,10 +1,10 @@
-const {body} = require('express-validator')
+const {body, param} = require('express-validator')
 const {status} = require('../../presenters/http')
 const {findMedicoByEmail} = require('../../database/repositories/medico')
 const {errorResponse} = require('../../presenters/handle')
 const { controller } = require('../../presenters/controller')
 const { hash } = require('../../presenters/encryptation')
-const { findEspecialidades } = require('../../database/repositories/especialidades')
+const { findEspecialidades, findAllEspecialidades } = require('../../database/repositories/especialidades')
 
 
 exports.validateMedicoBody = [
@@ -53,5 +53,25 @@ exports.checkAtualizacaoEmail = controller(async(req,res,next)=>{
             ))
     }
         
+    return next()
+})
+
+exports.validateParams = [
+    param('id').trim().notEmpty().isString().toInt()
+]
+
+exports.checkIdEspecialidade = controller(async(req,res,next)=>{
+    const id = req.params.id
+    let checkId = false
+    const especialidades = await findAllEspecialidades()
+    especialidades.map( especialidade =>{
+        if(especialidade.id == id)
+            checkId = true
+    })
+    if(!checkId)
+    return res.status(status.BAD_REQUEST).json(errorResponse(
+        'valor Inválido',
+        'O valor informado não foi encontrado'
+    ))
     return next()
 })

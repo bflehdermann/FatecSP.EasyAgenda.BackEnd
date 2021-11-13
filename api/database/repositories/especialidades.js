@@ -1,6 +1,6 @@
 const db = require('../connector')
 
-exports.findEspecialidades = (async() =>{
+exports.findAllEspecialidades = (async() =>{
     const text = 'SELECT * FROM especialidade'
     const client = await db.connect()
     try{

@@ -55,3 +55,19 @@ exports.updateMedicoEspecialidade = (async(id, payload)=>{
     }
     return await this.createMedicoEspecialidade(id,payload)
 })
+
+exports.findAllMedicoByEspecialidade = (async(payload)=>{
+    const id = payload.params.id
+    const text = `SELECT id_medico AS id, nome, crm, email,endereco, cep,cidade,estado FROM medico AS m 
+                  INNER JOIN medico_especialidade AS ms ON m.id = ms.id_medico 
+                  WHERE ms.id_especialidade = ($1)` 
+    const values = [id]
+    const client = await db.connect()
+    try{
+        const res = await client.query(text,values)
+        return res.rows
+    }catch (err){
+        console.log(err.stack)
+        return err.stack
+    }
+})
