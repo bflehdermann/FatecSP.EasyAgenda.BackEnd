@@ -11,6 +11,8 @@ const loginRouter = require('../api/routes/login')
 const pacienteRouter = require('../api/routes/paciente')
 const especialidadeRouter = require('../api/routes/especialidades')
 
+const horariosRouter = require('../api/routes/horarios')
+
 module.exports = () => {
   const app = express();
   app.use(bodyParser.json())
@@ -27,6 +29,7 @@ module.exports = () => {
   app.use('/api', loginRouter)
   app.use('/api', pacienteRouter)
   app.use('/api', especialidadeRouter)
+  app.use('/api', horariosRouter)
 
   app.disable('x-powered-by')
 
