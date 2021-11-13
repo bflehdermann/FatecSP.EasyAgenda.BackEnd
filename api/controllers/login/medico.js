@@ -14,12 +14,13 @@ exports.middleware = [
 ]
 
 exports.post = controller(async({body},res,)=>{
-    let user = await findMedicoByEmail(body)
-    if(!user || !compare(body.senha,user.senha))
+    let infosUser = await findMedicoByEmail(body)
+    if(!infosUser || !compare(body.senha,infosUser.senha))
     return res.status(status.UNAUTHORIZED).json(errorResponse(
         'Falha no login!',
         'Login/senha incorreto.'
     ))
-    res.status(status.OK).json({token: generateToken({acesso: 'medico', id:user.id, email: user.email })})
+    const {senha, ...user} = infosUser
+    res.status(status.OK).json({token: generateToken({acesso: 'medico', id:user.id, email: user.email }),user: user})
 })
 
