@@ -14,5 +14,5 @@ exports.middleware = [
 
 exports.handler = controller(async(req,res)=>{
     const resposta = await createEspecialidade(req.body)
-    return res.status(status.OK).json({status:'sucess', resposta})
+    return res.status(status.OK).json(resposta)
 })
