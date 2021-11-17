@@ -1,6 +1,7 @@
 require('dotenv').config()
 const express = require('express');
 const bodyParser = require('body-parser')
+const cors = require('cors')
 
 const{status} = require('../api/presenters/http')
 const language = require('../api/middlewares/language')
@@ -15,6 +16,7 @@ const horariosRouter = require('../api/routes/horarios')
 
 module.exports = () => {
   const app = express();
+  app.use(cors())
   app.use(bodyParser.json())
 
   // SETANDO VARIÁVEIS DA APLICAÇÃO
