@@ -10,6 +10,8 @@ exports.findPacienteByEmail = (async(payload) =>{
         return res.rows[0]
     }catch (err){
         return err.stack
+    }finally{
+        client.release()
     }
 })
 
@@ -28,6 +30,8 @@ exports.createPaciente = (async(payload) =>{
     }catch (err){
         console.log(err.stack)
         return err.stack
+    }finally{
+        client.release()
     }
 })
 
@@ -47,6 +51,8 @@ exports.FindAndUpdatePaciente = (async(id,payload)=>{
     }catch (err){
         console.log(err.stack)
         return err.stack
+    }finally{
+        client.release()
     }
     
 })
@@ -64,5 +70,7 @@ exports.findAndDeletePaciente = (async(id)=>{
     }catch (err){
         console.log(err.stack)
         return err.stack
+    }finally{
+        client.release()
     }
 })

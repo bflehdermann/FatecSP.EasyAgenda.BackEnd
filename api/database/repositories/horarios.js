@@ -11,6 +11,8 @@ exports.findAndDeleteHorario = (async(payload)=>{
     }catch (err){
         console.log(err.stack)
         return err.stack
+    }finally{
+        client.release()
     }
 })
 

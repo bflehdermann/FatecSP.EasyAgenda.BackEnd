@@ -9,6 +9,8 @@ exports.findAllEspecialidades = (async() =>{
     }catch (err){
         console.log(err.stack)
         return err.stack
+    }finally{
+        client.release()
     }
 })
 
@@ -23,6 +25,8 @@ exports.createEspecialidade = (async(payload) =>{
     }catch (err){
         console.log(err.stack)
         return err.stack
+    }finally{
+        client.release()
     }
 })
 
@@ -37,5 +41,7 @@ exports.findOneEspecialidade = (async(payload)=>{
     }catch (err){
         console.log(err.stack)
         return err.stack
+    }finally{
+        client.release()
     }
 })

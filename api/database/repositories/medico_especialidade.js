@@ -19,6 +19,8 @@ exports.createMedicoEspecialidade = (async(id, payload) =>{
             }catch (err){
                 console.log(err.stack)
                 return err.stack
+            }finally{
+                client.release()
             }
         })
     )
@@ -40,6 +42,8 @@ exports.findMedicoEspecialidadesById = (async(id) =>{
     }catch (err){
         console.log(err.stack)
         return err.stack
+    }finally{
+        client.release()
     }
 })
 
@@ -52,6 +56,8 @@ exports.updateMedicoEspecialidade = (async(id, payload)=>{
     }catch (err){
         console.log(err.stack)
         return err.stack
+    }finally{
+        client.release()
     }
     return await this.createMedicoEspecialidade(id,payload)
 })
@@ -69,5 +75,7 @@ exports.findAllMedicoByEspecialidade = (async(payload)=>{
     }catch (err){
         console.log(err.stack)
         return err.stack
+    }finally{
+        client.release()
     }
 })
