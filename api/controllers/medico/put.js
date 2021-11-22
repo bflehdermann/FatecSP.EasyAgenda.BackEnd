@@ -1,5 +1,5 @@
 const {status} = require('../../presenters/http')
-const { validateMedicoBody, encryptPassword,checkAtualizacaoEmail} = require('./rules')
+const { encryptPassword,checkAtualizacaoEmail, validateMedicoPutBody} = require('./rules')
 const { validateErrorBody } = require('../../presenters/validator')
 const { controller } = require('../../presenters/controller')
 const { validateAuthorization } = require('../../presenters/jwt')
@@ -8,7 +8,7 @@ const { updateMedicoEspecialidade, findMedicoEspecialidadesById } = require('../
 
 exports.middleware = [
     validateAuthorization, //função para Autenticação de Rota
-    validateMedicoBody,
+    validateMedicoPutBody,
     validateErrorBody,
     checkAtualizacaoEmail,
     encryptPassword
