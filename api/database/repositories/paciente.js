@@ -42,12 +42,20 @@ exports.FindAndUpdatePaciente = (async(id,payload)=>{
         validadeConvenio: validade_convenio,
         planoConvenio: plano_convenio } = payload
     
-        const text = 'UPDATE paciente SET (nome,email,cpf,convenio,carteirinha_convenio,validade_convenio,plano_convenio,senha) = ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *'
-    const values = [nome,email,cpf,convenio,carteirinha_convenio,validade_convenio,plano_convenio,senha]
+        const text = `UPDATE paciente SET (nome,email,cpf,convenio,carteirinha_convenio,validade_convenio,plano_convenio,senha) = ($1, $2, $3, $4, $5, $6, $7, $8)  WHERE id = ${id} RETURNING *`
+        const values = [nome,email,cpf,convenio,carteirinha_convenio,validade_convenio,plano_convenio,senha]
+
+        const textSemSenha = `UPDATE paciente SET (nome,email,cpf,convenio,carteirinha_convenio,validade_convenio,plano_convenio) = ($1, $2, $3, $4, $5, $6, $7)  WHERE id = ${id} RETURNING *`
+        const valuesSemsenha = [nome,email,cpf,convenio,carteirinha_convenio,validade_convenio,plano_convenio]
     const client = await db.connect()
     try{
-        const res = await client.query(text,values)
+        if(!senha){
+        const res = await client.query(textSemSenha,valuesSemsenha)
         return res.rows[0]
+        }
+        else {const res = await client.query(text,values)
+        return res.rows[0]
+        }
     }catch (err){
         console.log(err.stack)
         return err.stack

@@ -19,6 +19,17 @@ exports.validateMedicoBody = [
     body('especialidades').isArray().notEmpty()
 ]
 
+exports.validateMedicoPutBody = [
+    body('nome').trim().isString().notEmpty(),
+    body('email').isEmail(),
+    body('crm').trim().isString().notEmpty(),
+    body('endereco').trim().isString().notEmpty(),
+    body('cidade').trim().isString().notEmpty(),
+    body('estado').trim().isString().notEmpty(),
+    body('cep').trim().isString().notEmpty(),
+    body('especialidades').isArray().notEmpty()
+]
+
 exports.checkEmail = controller(async ({ body}, res, next) => {
         const user = await findMedicoByEmail(body)
         if (user)
@@ -39,7 +50,8 @@ exports.checkPassword = controller(async(req,res, next)=>{
 })*/
 
 exports.encryptPassword = controller((req, _, next) => {
-    req.body.senha = hash(req.body.senha)
+    if(req.body.senha)
+        req.body.senha = hash(req.body.senha)
     return next()
 })
 

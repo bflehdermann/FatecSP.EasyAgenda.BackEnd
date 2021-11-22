@@ -33,12 +33,22 @@ exports.createMedico = (async(payload) =>{
 
 exports.findAndUpdateMedico = (async( id, payload )=>{
     const{nome,crm,endereco,cep,cidade,estado,email,senha} = payload
+
+    const textSemSenha = `UPDATE medico SET (nome,crm,endereco,cep,cidade,estado,email) = ($1, $2, $3, $4, $5, $6, $7) WHERE id = ${id} RETURNING *`
+    const valuesSemSenha = [nome,crm,endereco,cep,cidade,estado,email]
+
     const text = `UPDATE medico SET (nome,crm,endereco,cep,cidade,estado,email,senha) = ($1, $2, $3, $4, $5, $6, $7, $8) WHERE id = ${id} RETURNING *`
     const values = [nome,crm,endereco,cep,cidade,estado,email,senha]
+    
     const client = await db.connect()
     try{
-        const res = await client.query(text,values)
-        return res.rows[0]
+        if(!senha){
+            const res = await client.query(textSemSenha,valuesSemsenha)
+            return res.rows[0]
+            }
+            else {const res = await client.query(text,values)
+            return res.rows[0]
+            }
     }catch (err){
         console.log(err.stack)
         return err.stack

@@ -14,6 +14,13 @@ exports.validaPacienteBody = [
     body('senha').trim().isString().notEmpty()
 ]
 
+exports.validaPacientePutBody = [
+    body('nome').trim().isString().notEmpty(),
+    body('email').isEmail(),
+    body('cpf').trim().isString().notEmpty(),
+    body('convenio').trim().isBoolean().notEmpty()
+]
+
 exports.validaConvenio = controller(async (req, res, next)=>{
     const { convenio, carteirinhaConvenio,validadeConvenio, planoConvenio} = req.body
     verConvenio = convenio.toLowerCase() == 'true'
@@ -56,7 +63,8 @@ exports.checkPassword = controller(async(req,res, next)=>{
 })*/
 
 exports.encryptPassword = controller((req, _, next) => {
-    req.body.senha = hash(req.body.senha)
+    if(req.body.senha)
+        req.body.senha = hash(req.body.senha)
     return next()
 })
 
