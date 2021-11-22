@@ -43,7 +43,7 @@ exports.findAndUpdateMedico = (async( id, payload )=>{
     const client = await db.connect()
     try{
         if(!senha){
-            const res = await client.query(textSemSenha,valuesSemsenha)
+            const res = await client.query(textSemSenha,valuesSemSenha)
             return res.rows[0]
             }
             else {const res = await client.query(text,values)
