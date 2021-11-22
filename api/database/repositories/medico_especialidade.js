@@ -6,16 +6,14 @@ exports.createMedicoEspecialidade = (async(id, payload) =>{
     const{especialidades} = payload
 
     const text = 'INSERT INTO medico_especialidade (id_medico,id_especialidade) VALUES ($1,$2) RETURNING *'
-    const client = await db.connect()
+
     return await Promise.all(
         especialidades.map(async(id_especialidade) =>{
-
+            const client = await db.connect()
             const values = [id, id_especialidade]
             try{
                 const res = await client.query(text,values)
-                
                 return res.rows[0].id_especialidade
-    
             }catch (err){
                 console.log(err.stack)
                 return err.stack
