@@ -82,3 +82,18 @@ exports.findAndDeletePaciente = (async(id)=>{
         client.release()
     }
 })
+
+exports.findPacienteById = (async(payload) =>{
+    const {id_cliente: id} = payload
+    const text = 'SELECT * FROM paciente WHERE id = $1'
+    const values = [id]
+    const client = await db.connect()
+    try{
+        const res = await client.query(text,values)
+        return res.rows[0]
+    }catch (err){
+        return err.stack
+    }finally{
+        client.release()
+    }
+})

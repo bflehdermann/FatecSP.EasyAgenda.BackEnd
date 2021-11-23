@@ -1,8 +1,8 @@
-const { findAndDeleteHorario, findHorarioMedicoPorDia } = require("../../database/repositories/horarios");
+const { findHorarioMedicoPorDia } = require("../../database/repositories/horarios");
 const { controller } = require("../../presenters/controller");
 const { status } = require("../../presenters/http");
 const { validateAuthorization } = require("../../presenters/jwt");
-const { validateIdHorario, validateIdMedicoData } = require("./rules");
+const { validateIdMedicoData } = require("./rules");
 const { validateErrorBody } = require("../../presenters/validator")
 
 

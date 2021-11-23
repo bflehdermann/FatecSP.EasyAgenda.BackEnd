@@ -76,3 +76,18 @@ exports.findAndDeleteMedico = (async(id)=>{
         client.release()
     }
 })
+
+exports.findMedicoById = (async(payload) =>{
+    const {id_medico:id} = payload
+    const text = 'SELECT * FROM medico WHERE id = $1'
+    const values = [id]
+    const client = await db.connect()
+    try{
+        const res = await client.query(text,values)
+        return res.rows[0]
+    }catch (err){
+        return err.stack
+    }finally{
+        client.release()
+    }
+})
