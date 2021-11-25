@@ -8,13 +8,13 @@ const { validateParams, checkIdPaciente } = require("./rules")
 
 
 exports.middleware = [
-    validateAuthorization,
+    //validateAuthorization,
     validateParams,
     validateErrorBody,
     checkIdPaciente
 ]
 
 exports.handler = controller(async(req,res)=>{
-    const resposta = await FindHorarioPorIdPaciente(req)
+    const resposta = await FindHorarioPorIdPaciente(req.body)
     res.status(status.OK).json(resposta)
 })

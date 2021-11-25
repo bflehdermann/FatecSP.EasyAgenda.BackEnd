@@ -24,8 +24,8 @@ router.post(
     postHorario.handler
 )
 
-router.get(
-    '/horarios/paciente/:id',
+router.post(
+    '/horarios/paciente',
     getHorarioPaciente.middleware,
     getHorarioPaciente.handler
 )

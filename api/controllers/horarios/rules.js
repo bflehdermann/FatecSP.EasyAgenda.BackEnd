@@ -19,12 +19,13 @@ exports.validateAgendamentoData =[
     body('id_medico').trim().isString().notEmpty(),
     body('hora_inicio').trim().notEmpty(),
     body('hora_fim').trim().notEmpty(),
-    body('data').trim().notEmpty(),
+    
     body('id_cliente').trim().isString().notEmpty()
 ]
 
 exports.validateParams = [
-    param('id').trim().notEmpty().isString().toInt()
+    body('idPaciente').trim().notEmpty().isString().toInt(),
+    body('data').trim().notEmpty(),
 ]
 
 exports.checkSePacienteExiste = controller(async(req,res,next)=>{
@@ -46,7 +47,7 @@ exports.checkSeMedicoExiste = controller(async(req,res,next)=>{
 })
 
 exports.checkIdPaciente = controller(async(req,res,next)=>{
-    req.id_cliente = req.params.id
+    req.id_cliente = req.body.idPaciente
     const resposta = await findPacienteById(req)
     if(!resposta)
         return res.status(status.BAD_REQUEST).json(errorResponse(
