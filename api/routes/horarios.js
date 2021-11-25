@@ -3,7 +3,7 @@ const express = require('express')
 const deleteHorario = require('../controllers/horarios/delete')
 const getHorarioMedico = require('../controllers/horarios/getPorMedico')
 const postHorario = require('../controllers/horarios/post')
-
+const getHorarioPaciente=require('../controllers/horarios/getPorPaciente')
 const router = express.Router()
 
 router.delete(
@@ -24,5 +24,10 @@ router.post(
     postHorario.handler
 )
 
+router.get(
+    '/horarios/paciente/:id',
+    getHorarioPaciente.middleware,
+    getHorarioPaciente.handler
+)
 
 module.exports = router

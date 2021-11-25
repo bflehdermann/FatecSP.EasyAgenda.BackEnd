@@ -1,4 +1,4 @@
-const {body} = require('express-validator')
+const {body, param} = require('express-validator')
 const { findMedicoById } = require('../../database/repositories/medico')
 const { findPacienteById } = require('../../database/repositories/paciente')
 const { controller } = require('../../presenters/controller')
@@ -23,6 +23,10 @@ exports.validateAgendamentoData =[
     body('id_cliente').trim().isString().notEmpty()
 ]
 
+exports.validateParams = [
+    param('id').trim().notEmpty().isString().toInt()
+]
+
 exports.checkSePacienteExiste = controller(async(req,res,next)=>{
     const resposta = await findPacienteById(req.body)
     if(!resposta)
@@ -37,6 +41,17 @@ exports.checkSeMedicoExiste = controller(async(req,res,next)=>{
     if(!resposta)
         return res.status(status.BAD_REQUEST).json(errorResponse(
             "Erro", "medico nao existe"
+        ))
+    return next()
+})
+
+exports.checkIdPaciente = controller(async(req,res,next)=>{
+    req.id_cliente = req.params.id
+    const resposta = await findPacienteById(req)
+    if(!resposta)
+        return res.status(status.BAD_REQUEST).json(errorResponse(
+            "Erro",
+            "Usuário não existente"
         ))
     return next()
 })

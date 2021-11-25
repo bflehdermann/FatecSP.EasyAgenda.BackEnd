@@ -49,4 +49,22 @@ exports.createHorario=(async(payload)=>{
     }
 })
 
-//findAndDeleteHorario(25)
+exports.FindHorarioPorIdPaciente=(async(payload)=>{
+    const id_paciente = payload.params.id
+    const text = `SELECT 
+                  h.id, id_medico, hora_inicio, data, nome AS nome_medico, email, crm,endereco,cep, cidade, estado
+                  FROM horario AS h
+                  INNER JOIN medico AS m ON m.id = h.id_medico
+                  WHERE id_cliente = ($1)`
+    const values =[id_paciente]
+    const client = await db.connect()
+    try{
+        const res = await client.query(text,values)
+        return res.rows
+    }catch(err){
+        console.log(err.stack)
+        return err.stack
+    }finally{
+        client.release()
+    }
+})
