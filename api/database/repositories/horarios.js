@@ -18,7 +18,11 @@ exports.findAndDeleteHorario = (async(payload)=>{
 
 exports.findHorarioMedicoPorDia = (async(payload)=>{
     const {idMedico:id_medico, dia:data} = payload
-    const text = 'SELECT * FROM horario WHERE id_medico=($1) AND data = ($2)'
+    const text = `SELECT h.id, id_cliente, hora_inicio, data, nome AS nome_paciente
+                  FROM horario AS h
+                  INNER JOIN paciente AS p ON p.id = h.id_cliente 
+                  WHERE id_medico=($1) AND data = ($2)
+                  ORDER BY data, hora_inicio ASC`
     const values = [id_medico, data]
     const client = await db.connect()
     try{

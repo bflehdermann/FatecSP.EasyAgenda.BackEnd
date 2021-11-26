@@ -15,7 +15,7 @@ exports.middleware = [
 ]
 
 exports.handler = controller(async(req,res)=>{
-    const {senha, id, ...atualizaInfoMedico} =await findAndUpdateMedico( req._rt_auth_token.id , req.body)
+    const {senha, ...atualizaInfoMedico} =await findAndUpdateMedico( req._rt_auth_token.id , req.body)
 
     const atualizaEspecialidadeMedico = await updateMedicoEspecialidade(req._rt_auth_token.id , req.body)
 
