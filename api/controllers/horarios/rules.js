@@ -7,7 +7,7 @@ const { status } = require('../../presenters/http')
 
 
 exports.validateIdHorario = [
-    body('id').trim().isString().notEmpty()
+    param('id').trim().isString().notEmpty()
 ]
 
 exports.validateIdMedicoData = [
@@ -24,8 +24,7 @@ exports.validateAgendamentoData =[
 ]
 
 exports.validateParams = [
-    body('idPaciente').trim().notEmpty().isString().toInt(),
-    body('data').trim().notEmpty(),
+    body('idPaciente').trim().notEmpty().isString().toInt()
 ]
 
 exports.checkSePacienteExiste = controller(async(req,res,next)=>{

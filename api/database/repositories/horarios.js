@@ -50,13 +50,13 @@ exports.createHorario=(async(payload)=>{
 })
 
 exports.FindHorarioPorIdPaciente=(async(payload)=>{
-    const {idPaciente:id_paciente, data} = payload
+    const {idPaciente:id_paciente} = payload
     const text = `SELECT 
                   h.id, id_medico, hora_inicio, data, nome AS nome_medico, email, crm,endereco,cep, cidade, estado
                   FROM horario AS h
                   INNER JOIN medico AS m ON m.id = h.id_medico
-                  WHERE id_cliente = ($1) AND data = ($2)`
-    const values =[id_paciente,data]
+                  WHERE id_cliente = ($1) ORDER BY data, hora_inicio ASC`
+    const values =[id_paciente]
     const client = await db.connect()
     try{
         const res = await client.query(text,values)

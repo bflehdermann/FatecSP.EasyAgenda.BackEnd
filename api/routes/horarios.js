@@ -7,7 +7,7 @@ const getHorarioPaciente=require('../controllers/horarios/getPorPaciente')
 const router = express.Router()
 
 router.delete(
-    '/horarios',
+    '/horarios/:id',
     deleteHorario.middleware,
     deleteHorario.handler
 )

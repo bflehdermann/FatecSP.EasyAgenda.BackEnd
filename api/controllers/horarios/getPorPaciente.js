@@ -8,7 +8,7 @@ const { validateParams, checkIdPaciente } = require("./rules")
 
 
 exports.middleware = [
-    //validateAuthorization,
+    validateAuthorization,
     validateParams,
     validateErrorBody,
     checkIdPaciente

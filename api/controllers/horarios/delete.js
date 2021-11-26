@@ -3,7 +3,8 @@ const { controller } = require("../../presenters/controller");
 const { status } = require("../../presenters/http");
 const { validateAuthorization } = require("../../presenters/jwt");
 const { validateIdHorario } = require("./rules");
-const { validateErrorBody } = require("../../presenters/validator")
+const { validateErrorBody } = require("../../presenters/validator");
+const { errorResponse } = require("../../presenters/handle");
 
 
 exports.middleware = [
@@ -13,8 +14,11 @@ exports.middleware = [
 ]
 
 exports.handler = controller(async(req,res)=>{
-    const resposta = await findAndDeleteHorario(req.body)
+    const resposta = await findAndDeleteHorario(req.params)
     if( resposta == undefined)
-        res.status(status.BAD_REQUEST).json({erro:"Deu erro"})
+        res.status(status.BAD_REQUEST).json(errorResponse(
+          "Erro!",
+          "Erro ao tentar Excluir horário"
+        ))
     res.status(status.OK).json({deleted:'success'})
 })
