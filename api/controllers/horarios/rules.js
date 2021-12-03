@@ -16,15 +16,20 @@ exports.validateIdMedicoData = [
 ]
 
 exports.validateAgendamentoData =[
-    body('id_medico').trim().isString().notEmpty(),
-    body('hora_inicio').trim().notEmpty(),
-    body('hora_fim').trim().notEmpty(),
-    
-    body('id_cliente').trim().isString().notEmpty()
+  body('id_medico').trim().isString().notEmpty(),
+  body('hora_inicio').trim().notEmpty(),
+  body('hora_fim').trim().notEmpty(),
+  body('id_cliente').trim().isString().notEmpty()
 ]
 
 exports.validateParams = [
     body('idPaciente').trim().notEmpty().isString().toInt()
+]
+
+exports.validateindisponibilidadeMedicoData =[
+  body('id_medico').trim().isString().notEmpty(),
+  body('hora_inicio').trim().notEmpty(),
+  body('hora_fim').trim().notEmpty()
 ]
 
 exports.checkSePacienteExiste = controller(async(req,res,next)=>{
