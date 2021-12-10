@@ -32,6 +32,12 @@ exports.validateindisponibilidadeMedicoData =[
   body('hora_fim').trim().notEmpty()
 ]
 
+
+exports.validateIdRelatorio = [
+  body('id').trim().isNumeric().notEmpty(),
+  body('relatorio_medico').trim().notEmpty()
+]
+
 exports.checkSePacienteExiste = controller(async(req,res,next)=>{
     const resposta = await findPacienteById(req.body)
     if(!resposta)
