@@ -6,6 +6,7 @@ const postHorario = require('../controllers/horarios/post')
 const getHorarioPaciente=require('../controllers/horarios/getPorPaciente')
 const postIndispMedicoDia = require('../controllers/horarios/postIndisponibilidadeMedico')
 const putRelatorio = require('../controllers/horarios/putRelatorio')
+
 const router = express.Router()
 
 router.delete(

@@ -92,6 +92,7 @@ exports.indisponibilidadeHorarioMedico=(async(payload)=>{
 })
 
 
+
 exports.setRelatorioByid=(async(payload)=>{
   const {id, relatorio_medico} = payload
   const text = `UPDATE horario SET relatorio_medico = $1 WHERE id = ${id} RETURNING *`
@@ -108,3 +109,4 @@ exports.setRelatorioByid=(async(payload)=>{
   }
 
 })
+

@@ -1,5 +1,5 @@
-const moment = require('moment')
 
+const moment = require('moment')
 const { FindHorarioPorIdPaciente } = require("../../database/repositories/horarios")
 const { controller } = require("../../presenters/controller")
 const { status } = require("../../presenters/http")
@@ -32,4 +32,5 @@ exports.handler = controller(async(req,res)=>{
       respostaformatada.push(eventos)
     })
     res.status(status.OK).json({resposta,'calendar':respostaformatada})
+
 })
